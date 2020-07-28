@@ -14,7 +14,7 @@ function_learners = []
 
 @app.route('/')
 def index():
-    return render_template("view/index.html")
+    return render_template("index.html")
 
 '''
 {
@@ -135,7 +135,7 @@ def plot_to_image():
     plt.close()
     img.seek(0)
     plot_url = str(base64.b64encode(img.getvalue())).lstrip('b').strip("'")
-    return f'<img src="data:image/png;base64,{plot_url}">'
+    return f'data:image/png;base64,{plot_url}'
 
 
 if __name__ == '__main__':

@@ -215,6 +215,8 @@ dmypy.json
 pyvenv.cfg
 pip-selfcheck.json
 
+!static/scripts
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json

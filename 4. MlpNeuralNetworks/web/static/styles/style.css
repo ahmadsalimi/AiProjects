@@ -3,6 +3,9 @@
     border: black;
     border-width: 1px;
     border-style: solid;
+}
+
+.center {
     margin: auto;
     display: block;
 }
