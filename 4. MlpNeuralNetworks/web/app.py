@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, render_template
 from function_prediction import FunctionLearner
 import numpy as np
 import pandas as pd
@@ -14,7 +14,7 @@ function_learners = []
 
 @app.route('/')
 def index():
-    return "Hello, World!"
+    return render_template("view/index.html")
 
 '''
 {
