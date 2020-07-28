@@ -11,3 +11,4 @@ Artificial Intelligence Projects - Sharif University of Technology - Spring 2020
 
 4. Multilayer Perceptron Neural Networks:
     - [Function Prediction](4.%20MlpNeuralNetworks/FunctionPrediction.ipynb)
+    - [MNIST dataset Classification and Noise Reduction](4.%20MlpNeuralNetworks/MNISTClassification.ipynb)
