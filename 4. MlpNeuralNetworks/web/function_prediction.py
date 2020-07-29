@@ -54,9 +54,9 @@ class FunctionLearner:
     def create_random_dataset(self, size:int, low, high, noise_sigma):
         feature_shape = (size, self.get_feature_dimension())
         X = np.random.uniform(low, high, feature_shape)
-        y = self.function(*X.T).reshape(size, 1)
+        y = np.copy(self.function(*X.T)).reshape(size, 1)
 
-        if noise_sigma:
+        if noise_sigma is not None:
             y += np.random.normal(scale=noise_sigma, size=(size, 1))
         return X, y
 

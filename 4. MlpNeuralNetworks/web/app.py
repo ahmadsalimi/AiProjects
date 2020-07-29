@@ -104,7 +104,7 @@ def plot_result():
             error = function_learners[content['learnerId']].error(data=data)
             function_learners[content['learnerId']].plot_result(data=data, title=f'{content["title"]} - error: {error}')
         else:
-            x = np.random.uniform(content['x']['low'] * 2, content['x']['high'] * 2, (content['x']['size'], 1))
+            x = np.random.uniform(content['x']['low'][0] * 2, content['x']['high'][0] * 2, (content['x']['size'], 1))
             error = function_learners[content['learnerId']].error(X=x)
             function_learners[content['learnerId']].plot_result(x=x, title=f'{content["title"]} - error: {error}')
         return jsonify([plot_to_image()])

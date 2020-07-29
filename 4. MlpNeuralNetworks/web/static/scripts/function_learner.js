@@ -9,12 +9,13 @@ class FunctionLearner {
         this.GetTrainDomain = key => {
             return this.args
                 .map(arg => '#' + arg + '-' + key)
-                .map(id => parseInt($(id).val()));
+                .map(id => parseFloat($(id).val()));
         }
 
         this.GetNoise = () => {
             if ($('#noise').val().length > 0) {
-                return parseInt($('#noise').val());
+                console.log(parseFloat($('#noise').val()));
+                return parseFloat($('#noise').val());
             }
             return null;
         }
