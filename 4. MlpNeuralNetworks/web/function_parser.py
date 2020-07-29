@@ -1,4 +1,5 @@
 import numpy as np
+from sympy.parsing.latex import parse_latex
 
 functions = {
     'sin': np.sin,
@@ -9,7 +10,8 @@ functions = {
 
 
 def parse_function(function):
-    return eval(f"{make_lambda_prefix(function['parameters'])} {function['expression']}", functions)
+    print(function)
+    return eval(f"{make_lambda_prefix(function['parameters'])} {parse_latex(function['expression'])}", functions)
 
 def make_lambda_prefix(parameters):
     result = 'lambda '

@@ -1,0 +1,41 @@
+{% set title = 'Function Drawer' %}
+{% set scripts = [url_for('static', filename='scripts/function_drawer.js')] %}
+{% set styles = [url_for('static', filename='styles/function_drawer.css')] %}
+
+{% extends "main_template.html" %}
+
+{% block content %}
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <button id="clear-button" type="button" class="btn btn-outline-primary">Clear</button>
+        <button id="start-button" type="button" class="btn btn-outline-secondary">Start Capturing</button>
+    </div>
+    <input type="text" id="neuron1" class="form-control" placeholder="1st Layer Neurons"
+        aria-label="1st Layer Neurons" aria-describedby="basic-addon2">
+    <input type="text" id="neuron2" class="form-control" placeholder="2nd Layer Neurons"
+        aria-label="2nd Layer Neurons" aria-describedby="basic-addon2">
+    <input type="text" id="epochs" class="form-control" placeholder="Epochs" aria-label="Epochs"
+        aria-describedby="basic-addon2">
+    <div class="input-group-append">
+        <button id="learn-button" class="btn btn-outline-success" type="button">Learn</button>
+        <button id="plot-result-button" class="btn btn-outline-success" type="button" disabled>PlotResult</button>
+        <button id="plot-history-button" class="btn btn-outline-success" type="button" disabled>PlotHistory</button>
+    </div>
+</div>
+<hr>
+<canvas id="Canvas" class="center" width="1000" height="600"></canvas>
+<div class="modal fade" id="plot-modal" tabindex="-1" role="dialog" aria-labelledby="plotModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Result Plot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id=result>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

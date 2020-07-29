@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 from function_parser import parse_function
+import mimetypes
+
+mimetypes.add_type('text/css', '.css')
+mimetypes.add_type('text/javascript', '.js')
 
 app = Flask(__name__)
 
@@ -14,7 +18,15 @@ function_learners = []
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("home.html")
+
+@app.route('/FunctionDrawer')
+def function_drawer():
+    return render_template("function_drawer.html")
+
+@app.route('/FunctionLearner')
+def function_learner():
+    return render_template("function_learner.html")
 
 '''
 {
@@ -31,8 +43,8 @@ def index():
     "noise_sigma": null
 }
 '''
-@app.route('/FunctionLearner', methods=['PUT'])
-def create_function_learner():
+@app.route('/FunctionLearner/Init', methods=['PUT'])
+def init_function_learner():
     content = request.json
     data_type = request.headers.get("Data-Type")
     
@@ -73,7 +85,8 @@ def learn():
     "x": {
         "low": 0,
         "high": 10,
-        "size": 10
+        "size": 10,
+        "axes":
     },
     "title": "title"
 }
@@ -84,13 +97,35 @@ def plot_result():
 
     content = request.json
 
-    if data_type == "data":
-        data = pd.DataFrame(data=content['test_data'], columns=['x', 'y'])
-        function_learners[content['learnerId']].plot_result(data=data, title=content['title'])
+    feature_dimension = function_learners[content['learnerId']].get_feature_dimension()
+    if feature_dimension == 1:
+        if data_type == "data":
+            data = pd.DataFrame(data=content['test_data'], columns=['x', 'y'])
+            error = function_learners[content['learnerId']].error(data=data)
+            function_learners[content['learnerId']].plot_result(data=data, title=f'{content["title"]} - error: {error}')
+        else:
+            x = np.random.uniform(content['x']['low'] * 2, content['x']['high'] * 2, (content['x']['size'], 1))
+            error = function_learners[content['learnerId']].error(X=x)
+            function_learners[content['learnerId']].plot_result(x=x, title=f'{content["title"]} - error: {error}')
+        return jsonify([plot_to_image()])
     else:
-        function_learners[content['learnerId']].plot_result(x=np.random.uniform(content['x']['low'], content['x']['high'], content['x']['size']), title=content['title'])
+        plots = []
+        for axis in range(feature_dimension):
+            low = content['x']['low'][:]
+            low[axis] *= 2
+            high = content['x']['high'][:]
+            high[axis] *= 2
+            print(high)
+            print(low)
+            x = np.random.uniform(low, high, (content['x']['size'], feature_dimension))
+            error = function_learners[content['learnerId']].error(X=x)
+            function_learners[content['learnerId']].plot_axis(x=x, axis=axis, title=f"$f-{content['x']['axes'][axis]}$ plot - error: {error}")
+            plots.append(plot_to_image())
+        return jsonify(plots)
+   
 
-    return plot_to_image()
+def get_error():
+    pass
 
 '''
 {
@@ -139,4 +174,4 @@ def plot_to_image():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

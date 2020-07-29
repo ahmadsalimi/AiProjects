@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    {% set navbar = {
+        'Home': '/',
+        'Function Learner': '/FunctionLearner',
+        'Function Drawer': '/FunctionDrawer'
+    } %}
+
+    {% set breadcrumb = {
+        'Home': false
+    } %}
+
+    {% if title != 'Home' %}
+    {% set _ = breadcrumb.update({'Home': true}) %}
+    {% set _ = breadcrumb.update({title: false}) %}
+    {% endif %}
+
+    <title>Neural Networks - {{ title }}</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- Styles -->
+    {% for style in styles %}
+    <link rel="stylesheet" href="{{ style }}">
+    {% endfor %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap scripts -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+    {% block head %}
+    {% endblock %}
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='scripts/function.js') }}"></script>
+    {% for script in scripts %}
+    <script src="{{ script }}"></script>
+    {% endfor %}
+
+    <!-- Fav icon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png" />
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" width="30" height="30"
+                    class="d-inline-block align-top" alt="">
+                Neural Networks
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% for item, url in navbar.items() %}
+                    {% if item == title %}
+                    <li class="nav-item active">
+                        {% else %}
+                    <li class="nav-item">
+                        {% endif %}
+                        <a class="nav-link" href="{{url}}">{{item}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Container -->
+    <div class="container bg-light main_container" id="container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% for item, hasLink in breadcrumb.items() %}
+                {% if hasLink %}
+                <li class="breadcrumb-item">
+                    <a href="{{ navbar[item] }}">{{ item }}</a>
+                </li>
+                {% else %}
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ item }}
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Error Modal -->
+    <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="errorModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="error-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="error-body" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

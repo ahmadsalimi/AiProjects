@@ -151,7 +151,11 @@ class FunctionLearner:
     def mse(self, X, Y):
         return ((X - Y) ** 2).mean()
 
-    def error(self, X):
+    def error(self, X=None, data=None):
+        if data is not None:
+            prediction = self.predict(data[data.columns[:-1]].values)
+            return self.mse(prediction, data[data.columns[-1:]].values.reshape(prediction.shape))
+        
         prediction = self.predict(X)
         return self.mse(prediction, self.function(*X.T).reshape(prediction.shape))
     
