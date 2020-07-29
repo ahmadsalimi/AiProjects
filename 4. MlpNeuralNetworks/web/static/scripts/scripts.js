@@ -7,6 +7,8 @@ var data = [];
 var i = 1;
 var canvas = document.getElementById('Canvas');
 var current_learner_id = -1;
+var result_plot = null;
+var history_plot = null;
 
 function Clear() {
     const context = canvas.getContext('2d');
@@ -14,6 +16,9 @@ function Clear() {
     $('#learn-button')
         .html('Learn')
         .prop('disabled', false);
+    
+    $('#plot-result-button').prop('disabled', true);
+    $('#plot-history-button').prop('disabled', true);
 
     capturing = false;
     data = [];
@@ -23,20 +28,51 @@ function Start() {
     capturing = true;
 }
 
-function onPlotReceived(image) {
+function PlotResult() {
+    $('#result').html(
+        '<img src="' + result_plot + '" class="center" width="100%">'
+    );
+
+    $('#plot-modal').modal('show');
+}
+
+function PlotHistory() {
+    $('#result').html(
+        '<img src="' + history_plot + '" class="center" width="100%">'
+    );
+
+    $('#plot-modal').modal('show');
+}
+
+function onHistoryPlotReceived(image) {
+    history_plot = image;
+
     $('#learn-button')
         .html('Learn')
         .removeClass("btn-info")
         .addClass("btn-outline-success");
 
-    $('#result').html(
-        '<img src="' + image + '" class="center" width="100%">'
-    );
-
-    $('#plot-modal').modal('show');
-
     $('#clear-button').prop('disabled', false);
     $('#start-button').prop('disabled', false);
+    $('#plot-history-button').prop('disabled', false);
+    $('#learn-button').prop('disabled', false);
+}
+
+function onResultPlotReceived(image) {
+    result_plot = image;
+
+    $.ajax({
+        method: 'POST',
+        url: '/FunctionLearner/PlotHistory',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            learnerId: current_learner_id,
+            loss_ylim: null,
+            lr_ylim: null
+        })
+    }).done(image => onHistoryPlotReceived(image));
+
+    $('#plot-result-button').prop('disabled', false);
 }
 
 function OnLearningDone() {
@@ -49,8 +85,8 @@ function OnLearningDone() {
             test_data: data,
             title: "Result Plot"
         }),
-        headers: {'Data-Type': 'data'}
-    }).done(image => onPlotReceived(image));
+        headers: { 'Data-Type': 'data' }
+    }).done(image => onResultPlotReceived(image));
 
     $('#learn-button').html(
         '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>\n' +
@@ -60,7 +96,7 @@ function OnLearningDone() {
 
 function OnInitializingDone(learnerId) {
     current_learner_id = learnerId;
-    
+
     $.ajax({
         method: 'GET',
         url: '/FunctionLearner/Learn?learnerId=' + learnerId + '&epochs=' + $('#epochs').val()
@@ -85,7 +121,7 @@ function Learn() {
             neurons: [parseInt($('#neuron1').val()), parseInt($('#neuron2').val())],
             noise_sigma: null
         }),
-        headers: {'Data-Type': 'data'}
+        headers: { 'Data-Type': 'data' }
     }).done(learnerId => OnInitializingDone(learnerId));
 
     $('#learn-button').html(
