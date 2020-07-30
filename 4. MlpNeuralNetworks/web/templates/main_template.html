@@ -6,7 +6,8 @@
     {% set navbar = {
         'Home': '/',
         'Function Learner': '/FunctionLearner',
-        'Function Drawer': '/FunctionDrawer'
+        'Function Drawer': '/FunctionDrawer',
+        'Digit Classifier': '/DigitClassifier',
     } %}
 
     {% set breadcrumb = {
@@ -22,7 +23,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Styles -->
     {% for style in styles %}
     <link rel="stylesheet" href="{{ style }}">
@@ -74,6 +75,20 @@
                     </li>
                     {% endfor %}
                 </ul>
+                <ul class="nav navbar-nav ml-auto">
+                    <li>
+                        <a href="https://linkedin.com/in/ahmadsalimi" class="nav-link"><i class="fa fa-linkedin-square fa-lg"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/ahmadsalimi" class="nav-link"><i class="fa fa-github fa-lg"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/ChichekaMan" class="nav-link"><i class="fa fa-twitter fa-lg"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/ahmadsalimi__" class="nav-link"><i class="fa fa-instagram fa-lg"></i></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -113,6 +128,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Copyright -->
+    <div class="bg-dark text-center py-3 text-light">© 2020 Copyright:
+        <a href="https://github.com/ahmadsalimi"> Ahmad Salimi</a>
+    </div>
+    <!-- Copyright -->
+
 </body>
 
 </html>

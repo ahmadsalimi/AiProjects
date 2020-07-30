@@ -7,7 +7,6 @@ class FunctionDrawer {
         this.capturing = false;
         this.in_progress = false;
         this.data = [];
-        this.i = 1;
         this.current_learner_id = -1;
         this.result_plot = null;
         this.history_plot = null;
@@ -50,7 +49,6 @@ class FunctionDrawer {
 
         this.handleError = response => {
             showAlert("Error " + response.status, response.responseText);
-            $('#error-modal').modal('show');
             this.resetButtons();
         };
 

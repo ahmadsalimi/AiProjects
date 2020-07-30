@@ -8,6 +8,7 @@ from io import BytesIO
 import base64
 from function_parser import parse_function
 import mimetypes
+from digit_classifier import classify
 
 mimetypes.add_type('text/css', '.css')
 mimetypes.add_type('text/javascript', '.js')
@@ -27,6 +28,10 @@ def function_drawer():
 @app.route('/FunctionLearner')
 def function_learner():
     return render_template("function_learner.html")
+
+@app.route('/DigitClassifier')
+def digit_classifier():
+    return render_template("digit_classifier.html")
 
 '''
 {
@@ -122,10 +127,6 @@ def plot_result():
             function_learners[content['learnerId']].plot_axis(x=x, axis=axis, title=f"$f-{content['x']['axes'][axis]}$ plot - error: {error}")
             plots.append(plot_to_image())
         return jsonify(plots)
-   
-
-def get_error():
-    pass
 
 '''
 {
@@ -141,29 +142,6 @@ def plot_history():
     function_learners[content['learnerId']].plot_history()
     return plot_to_image()
 
-# TODO: plot_axis and other functions
-
-'''
-{
-    "learnerId": 0,
-    "low": 0,
-    "high": 10,
-    "size": 10,
-    "axis": 0,
-    "title": "title"
-}
-'''
-@app.route('/FunctionLearner/PlotAxis', methods=['POST'])
-def plot_axis():
-    content = request.json
-
-    function_learners[content['learnerId']].plot_axis(
-        x=np.random.uniform(content['low'], content['high'], content['size']),
-        axis=content['axis'],
-        title=content['title'])
-
-    return plot_to_image()
-
 def plot_to_image():
     img = BytesIO()
     plt.savefig(img, format='png')
@@ -172,6 +150,17 @@ def plot_to_image():
     plot_url = str(base64.b64encode(img.getvalue())).lstrip('b').strip("'")
     return f'data:image/png;base64,{plot_url}'
 
+'''
+{
+    "points": [],
+    "width": 28,
+    "height": 28
+}
+'''
+@app.route('/DigitClassifier/PredictDigit', methods=['POST'])
+def predict_digit():
+    content = request.json
+    return jsonify(classify(content['points'], content['width'], content['height']))
 
 if __name__ == '__main__':
     app.run(debug=False)

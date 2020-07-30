@@ -22,7 +22,6 @@ class FunctionLearner {
 
         this.handleError = response => {
             showAlert("Error " + response.status, response.responseText)
-            $('#error-modal').modal('show');
             this.resetButtons()
         }
 
@@ -42,7 +41,7 @@ class FunctionLearner {
 
         this.onHistoryPlotReceived = image => {
             this.history_plot = image;
-            showAlert("Done!", "Your drawing is learned.");
+            showAlert("Done!", "Model fitted.");
             this.resetButtons();
         };
 

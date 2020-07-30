@@ -1,0 +1,43 @@
+{% set title = 'Digit Classifier' %}
+{% set scripts = [url_for('static', filename='scripts/digit_classifier.js')] %}
+{% set styles = [] %}
+
+{% extends "main_template.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4">
+        <canvas id="Canvas" class="center" width="300" height="300"></canvas>
+    </div>
+    <div class="col">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button id="clear-button" type="button" class="btn btn-outline-primary">Clear</button>
+            </div>
+            <div class="input-group-append">
+                <button id="guess-button" type="button" class="btn btn-outline-success">Guess!</button>
+            </div>
+        </div>
+        <hr>
+        <h5>Probabilities:</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    {% for i in range(10) %}
+                    <th scope="col">{{ i }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for i in range(10) %}
+                    <td id="{{ i }}"></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h5 id="result"></h5>
+    </div>
+</div>
+{% endblock %}
