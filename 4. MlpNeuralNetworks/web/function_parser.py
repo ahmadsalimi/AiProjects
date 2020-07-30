@@ -11,7 +11,7 @@ functions = {
 
 def parse_function(function):
     print(function)
-    return eval(f"{make_lambda_prefix(function['parameters'])} {parse_latex(function['expression'])}", functions)
+    return eval(f"{make_lambda_prefix(function['parameters'])} {str(parse_latex(function['expression'])).replace(', 10', '')}", functions)
 
 def make_lambda_prefix(parameters):
     result = 'lambda '
