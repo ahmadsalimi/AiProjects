@@ -8,6 +8,7 @@ Artificial Intelligence Projects - Sharif University of Technology - Spring 2020
     - [Estimate expression of a function using a number of given points](2.%20GeneticAlgorithm/GeneticAlgorithm.ipynb)
 
 3. Decision Tree Classifier: 
+    - [Diabete Prediction using decision tree classification](3.%20DecisionTreeClassifier/DessicionTreeClassification.ipynb)
 
 4. Multilayer Perceptron Neural Networks:
     - [Function Prediction](4.%20MlpNeuralNetworks/FunctionPrediction.ipynb)
