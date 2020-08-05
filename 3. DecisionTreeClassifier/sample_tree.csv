@@ -1,0 +1,13 @@
+Alt,Bar,Fri,Hun,Pat,Price,Rain,Res,Type,Est,Outcome
+1,0,0,1,Some,3,0,1,French,0-10,1
+1,0,0,1,Full,1,0,0,Thai,30-60,0
+0,1,0,0,Some,1,0,0,Burger,0-10,1
+1,0,1,1,Full,1,1,0,Thai,10-30,1
+1,0,1,0,Full,3,0,1,French,>60,0
+0,1,0,1,Some,2,1,1,Italian,0-10,1
+0,1,0,0,None,1,1,0,Burger,0-10,0
+0,0,0,1,Some,2,1,1,Thai,0-10,1
+0,1,1,0,Full,1,1,0,Burger,>60,0
+1,1,1,1,Full,3,0,1,Italian,10-30,0
+0,0,0,0,None,1,0,0,Thai,0-10,0
+1,1,1,1,Full,1,0,0,Burger,30-60,1
