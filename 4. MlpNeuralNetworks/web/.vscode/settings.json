@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "flask\\Scripts\\python.exe",
+    "python.pythonPath": "windows_env\\Scripts\\python.exe",
     "git.ignoreLimitWarning": true
 }
