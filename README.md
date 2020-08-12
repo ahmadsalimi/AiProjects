@@ -11,7 +11,7 @@ Artificial Intelligence Projects - Sharif University of Technology - Spring 2020
     - [Diabete Prediction using decision tree classification](3.%20DecisionTreeClassifier/DessicionTreeClassification.ipynb)
 
 4. Multilayer Perceptron Neural Networks:
-    - [Function Prediction](4.%20MlpNeuralNetworks/FunctionPrediction.ipynb)
+    - [Universal Function Approximator](4.%20MlpNeuralNetworks/UniversalFunctionApproximator.ipynb)
     - [MNIST digit recognition and noise reduction](4.%20MlpNeuralNetworks/MNIST.ipynb)
 
 5. SVM Classifier
